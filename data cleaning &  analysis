@@ -1,0 +1,64 @@
+import pandas as pd
+f = pd.read_excel("C:/Users/acer/Income Chart.xlsx")
+df
+df.head(12)
+df.tail(6)
+df.info()
+df.describe()
+df.isnull().sum()
+df.dtypes
+df = df.dropna( axis = 0)
+df.info()
+df
+import seaborn as sns
+import numpy as np
+numeric_cols = ['Age', 'Annual Income ', 'Spending Score']
+import matplotlib.pyplot as plt
+df[numeric_cols].hist(bins=20, figsize=(10,6), color='skyblue', edgecolor='black')
+plt.suptitle('Histograms of Numerical Variables')
+plt.show()
+import matplotlib.pyplot as plt
+bar_chart = plt.bar('Gender','Annual Income ',color = 'skyblue',data = df )
+plt.show()
+sns.scatterplot(x ='Annual Income ', y = 'Spending Score' , data = df)
+plt.title('Income vs Spending Score by Gender')
+plt.show()
+sel_col = ['Annual Income ','Spending Score','Age']
+sel1= df[sel_col]
+correlation = sel1.corr()
+plt.figure(figsize=(5, 3))
+sns.heatmap(correlation, annot = True , cmap = 'coolwarm' , linewidth = 5, fmt = '.2f')
+plt.title('Heatmap of income and spending score')
+plt.show()
+sns.boxplot(x = 'Gender', y='Annual Income ' , data=df)
+plt.show()
+sns.boxplot(x = 'Gender', y='Spending Score' , data=df)
+plt.show()
+from scipy.stats import ttest_1samp
+df.describe()
+hm = 30
+t_stat,p_value = ttest_1samp(df['Spending Score'],hm)
+alpha = 0.05
+if p_value<alpha:
+    print("Reject Null Hypothesis","P value",p_value,"Alpha Value",alpha)
+else:
+    print("Failed to reject Null hypothesis","P value",p_value,"Alpha Value",alpha)
+df.describe()
+from scipy.stats import ttest_ind
+
+
+group1 = df[df["Gender"]=="Male"]["Spending Score"]
+group2 = df[df["Gender"]=="Female"]["Spending Score"]
+
+ttest_ind(group1, group2)
+
+print("T statistic:", t_stat)
+print("P value:", p_value)
+
+alpha=0.05
+
+if p_value<alpha:
+    print("Reject Null Hypothesis","P value",p_value,"Alpha Value",alpha)
+else:
+    print("Failed to reject Null hypothesis","P value",p_value,"Alpha Value",alpha)
+df.dtypes
